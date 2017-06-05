@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#div1{
+			width: 200px;
+			height: 200px;
+			background: #f00;
+			padding: 10px;
+			border: 5px solid #000;
+			margin: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		haha
+	</div>
+	<script>
+		var oDiv = document.getElementById('div1');
+
+		// oDiv.offsetWidth只能取值，不能赋值
+		// console.log(oDiv.offsetWidth);  //取到border
+		// console.log(oDiv.offsetHeight);
+
+		// console.log(oDiv.currentStyle.width);  //ie  只取到width
+		// console.log(getComputedStyle(oDiv,null).width);  //标准
+
+
+		function getStyle(elem,attr){
+			if(elem.currentStyle){
+				return elem.currentStyle[attr];
+			}else{
+				return getComputedStyle(elem,null)[attr];
+			}
+		}
+		console.log(getStyle(oDiv,'width')); //200px
+	</script>
+</body>
+</html>
