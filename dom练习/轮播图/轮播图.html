@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul,ol{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		img{
+			border: 0;
+		}
+		#content{
+			margin: 100px auto;
+			width: 680px;
+			position: relative;
+		}
+		#img-box img{
+			width: 680px;
+			height: 400px;
+			display: none;
+		}
+		#img-box .selected{
+			display: block;
+		}
+		#tab-box{
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+		#tab-box li{
+			width: 25px;
+			height: 25px;
+			background: #000;
+			color: #fff;
+			float: left;
+			text-align: center;
+			margin-right: 5px;
+			cursor: pointer;
+		}
+		#tab-box .selected{
+			background: orange;
+		}
+		#arrow-box{
+			position: absolute;
+			left: 10px;
+			bottom: 10px;
+		}
+		#arrow-box span{
+			width: 25px;
+			height: 25px;
+			background: #000;
+			color: #fff;
+			text-align: center;
+			display: inline-block;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<div id="img-box">
+			<img class="selected" src="img/1.jpg" alt="">
+			<img src="img/2.jpg" alt="">
+			<img src="img/3.jpg" alt="">
+			<img src="img/4.jpg" alt="">
+		</div>
+		<ul id="tab-box">
+			<li class="selected">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<div id="arrow-box">
+			<span id="previous">&lt;</span>
+			<span id="next">&gt;</span>
+		</div>
+	</div>
+	
+	<script>
+		var oContent = document.getElementById('content');
+		var aLi = oContent.getElementsByTagName('li');
+		var aImg = oContent.getElementsByTagName('img');
+		var oNext = document.getElementById('next');
+		var oPrevious = document.getElementById('previous');
+		var timer;
+		var iNow = 0;
+
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function(){
+				changImg(this.index);
+				iNow = this.index;
+			}
+		}
+
+		oNext.onclick = function(){
+			iNow++;
+			// if(iNow == aImg.length){
+			// 	iNow = 0;
+			// }
+			iNow = iNow % aImg.length;
+			changImg(iNow);
+		}
+		oPrevious.onclick = function(){
+			iNow--;
+			if(iNow<0){
+				iNow = aImg.length-1;
+			}
+			changImg(iNow);
+		}
+		function changImg(idx){
+			for(var j=0;j<aLi.length;j++){
+				aLi[j].className = '';
+				aImg[j].className = '';
+			}
+			aLi[idx].className = 'selected';
+			aImg[idx].className = 'selected';
+		}
+
+		oContent.onmouseover = function(){
+			clearInterval(timer);
+		}
+		oContent.onmouseout = function(){
+			run();
+		}
+		function run(){
+			timer = setInterval(function(){
+				oNext.onclick();
+			},1000);
+		}
+		run();
+	</script>
+</body>
+</html>
