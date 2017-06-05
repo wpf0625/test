@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//非递归
+		// function factorial(n){
+		// 	var sum = 1;
+		// 	for(var i=1;i<n+1;i++){
+		// 		sum *= i;
+		// 	}
+		// 	return sum;
+		// }
+		// document.write(factorial(12)-factorial(10));
+
+		//递归
+		function fac(n){
+			if(n == 1){
+				return 1;
+			}
+			else{
+				return n *= fac(n-1);
+			}
+		}
+		document.write(fac(4));
+	</script>
+</body>
+</html>
